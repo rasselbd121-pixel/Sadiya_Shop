@@ -1,858 +1,106 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
-
-  <meta name="theme-color" content="#111827">
-
-  <meta name="description"
-        content="Sadiya Shop - Online Store">
-
-  <link rel="manifest" href="./manifest.json">
-
-  <meta name="mobile-web-app-capable"
-        content="yes">
-
-  <title>Sadiya Shop</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f6f8;
-      color: #222;
-    }
-
-    header {
-      background: #111827;
-      color: white;
-      padding: 22px 16px;
-      text-align: center;
-    }
-
-    header h1 {
-      font-size: 28px;
-      margin-bottom: 6px;
-    }
-
-    header p {
-      color: #d1d5db;
-      font-size: 14px;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px 15px;
-    }
-
-    .hero {
-      background: white;
-      border-radius: 16px;
-      padding: 22px;
-      margin-bottom: 22px;
-      text-align: center;
-      box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    }
-
-    .hero h2 {
-      font-size: 23px;
-      margin-bottom: 8px;
-    }
-
-    .hero p {
-      color: #666;
-    }
-
-    .loading {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .product {
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    }
-
-    .product img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .product-info {
-      padding: 15px;
-    }
-
-    .product h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-
-    .description {
-      color: #666;
-      font-size: 14px;
-      line-height: 1.5;
-      margin-bottom: 10px;
-    }
-
-    .price {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .stock {
-      color: #16a34a;
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-
-    button {
-      border: none;
-      cursor: pointer;
-    }
-
-    .order-btn {
-      width: 100%;
-      background: #111827;
-      color: white;
-      padding: 12px;
-      border-radius: 9px;
-      font-size: 16px;
-    }
-
-    .order-btn:active {
-      transform: scale(.98);
-    }
-
-    .order-section {
-      background: white;
-      margin-top: 25px;
-      padding: 20px;
-      border-radius: 16px;
-      box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    }
-
-    .order-section h2 {
-      margin-bottom: 15px;
-    }
-
-    .selected-product {
-      background: #f3f4f6;
-      padding: 12px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      font-weight: bold;
-    }
-
-    input,
-    textarea,
-    select {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ddd;
-      border-radius: 9px;
-      margin-bottom: 12px;
-      font-size: 15px;
-      outline: none;
-    }
-
-    input:focus,
-    textarea:focus,
-    select:focus {
-      border-color: #111827;
-    }
-
-    textarea {
-      min-height: 90px;
-      resize: vertical;
-    }
-
-    .confirm-btn {
-      width: 100%;
-      background: #16a34a;
-      color: white;
-      padding: 14px;
-      border-radius: 9px;
-      font-size: 17px;
-      font-weight: bold;
-    }
-
-    .confirm-btn:disabled {
-      opacity: .6;
-      cursor: not-allowed;
-    }
-
-    .success {
-      display: none;
-      margin-top: 15px;
-      padding: 15px;
-      background: #dcfce7;
-      color: #166534;
-      border-radius: 10px;
-      line-height: 1.6;
-    }
-
-    .error {
-      display: none;
-      background: #fee2e2;
-      color: #991b1b;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px;
-      color: #777;
-      font-size: 13px;
-    }
-
-    @media (max-width: 700px) {
-      .products {
-        grid-template-columns: 1fr;
-      }
-
-      .product img {
-        height: 240px;
-      }
-
-      header h1 {
-        font-size: 25px;
-      }
-
-      .hero h2 {
-        font-size: 21px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sadiya Shop</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f5f7;color:#172033;font-family:Arial,sans-serif}
+header{background:#111827;color:#fff;padding:16px;text-align:center}
+header h1{margin:0;font-size:24px}header p{margin:6px 0 0;font-size:13px;color:#d1d5db}
+.wrap{max-width:720px;margin:auto;padding:14px}.hero,.orderbox,.card{background:#fff;border-radius:18px;box-shadow:0 4px 18px #00000012;margin-bottom:16px}
+.hero{text-align:center;padding:20px}.hero h2{margin:0 0 7px}.hero p{margin:0;color:#666}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}.card{overflow:hidden}.card img{width:100%;height:210px;object-fit:cover;display:block}.body{padding:14px}.body h3{margin:0 0 8px;font-size:20px}.desc{color:#666;font-size:14px;min-height:38px}.price{font-size:22px;font-weight:700;margin:10px 0}.stock{color:#159447;font-size:13px;margin-bottom:10px}
+button{border:0;border-radius:10px;padding:12px 16px;font-size:16px;cursor:pointer}.orderbtn{width:100%;background:#111827;color:#fff}.orderbox{padding:18px}.selected{background:#f1f3f5;padding:12px;border-radius:12px;margin-bottom:12px;font-weight:700}
+label{display:block;margin:10px 0 6px;font-weight:600}input,textarea,select{width:100%;padding:13px;border:1px solid #d5d8de;border-radius:10px;font-size:16px;background:#fff}textarea{min-height:90px;resize:vertical}.confirm{width:100%;background:#16a34a;color:#fff;margin-top:14px;font-weight:700}.msg{margin-top:14px;padding:16px;border-radius:14px;background:#dcfce7;color:#166534;display:none}.error{background:#fee2e2;color:#991b1b}.total{font-size:20px;font-weight:700;margin-top:12px}footer{text-align:center;color:#888;padding:25px;font-size:12px}
+.empty{text-align:center;color:#777;padding:20px}
+</style>
 </head>
-
 <body>
+<header><h1>🛍️ Sadiya Shop</h1><p>আপনার পছন্দের পণ্য, সহজে অর্ডার করুন</p></header>
+<main class="wrap">
+<section class="hero"><h2>আমাদের জনপ্রিয় পণ্য</h2><p>পছন্দের পণ্যটি বেছে নিয়ে অর্ডার করুন</p></section>
+<section id="products" class="grid"></section>
 
-  <header>
-    <h1>🛍️ Sadiya Shop</h1>
-    <p>আপনার পছন্দের পণ্য, সহজে অর্ডার করুন</p>
-  </header>
+<section class="orderbox" id="orderBox">
+<h2>🛒 অর্ডার করুন</h2>
+<div id="selected" class="selected">আগে একটি product নির্বাচন করুন</div>
+<label>আপনার নাম</label><input id="name" placeholder="আপনার নাম">
+<label>মোবাইল নম্বর</label><input id="phone" inputmode="tel" placeholder="01XXXXXXXXX">
+<label>সম্পূর্ণ ডেলিভারি ঠিকানা</label><textarea id="address" placeholder="বাড়ি, রোড/গ্রাম, থানা, জেলা"></textarea>
+<label>Quantity</label><select id="qty"></select>
+<div id="total" class="total"></div>
+<button class="confirm" onclick="placeOrder()">অর্ডার Confirm করুন</button>
+<div id="message" class="msg"></div>
+</section>
+</main>
+<footer>© 2026 Sadiya Shop<br>All Rights Reserved</footer>
 
+<script>
+const SUPABASE_URL="https://kbseaoddhrtwdjfrkzit.supabase.co";
+const SUPABASE_KEY="sb_publishable_eShe9Sd6uQoHLvBUhAD9hQ__fioN6zU";
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-  <main class="container">
+let products=[], selected=null;
 
-    <section class="hero">
-      <h2>আমাদের জনপ্রিয় পণ্য</h2>
-      <p>পছন্দের পণ্যটি বেছে নিয়ে অর্ডার করুন</p>
-    </section>
-
-
-    <div class="error" id="errorMessage"></div>
-
-    <div class="loading" id="loading">
-      ⏳ Product লোড হচ্ছে...
-    </div>
-
-
-    <section class="products" id="products"></section>
-
-
-    <section class="order-section" id="order">
-
-      <h2>🛒 অর্ডার করুন</h2>
-
-      <div
-        class="selected-product"
-        id="selectedProduct">
-
-        আগে একটি product নির্বাচন করুন।
-
+async function loadProducts(){
+  const {data,error}=await db.from("products").select("*").eq("active",true).order("id",{ascending:true});
+  const box=document.getElementById("products");
+  if(error){box.innerHTML='<div class="empty">পণ্য লোড করা যাচ্ছে না।</div>';return}
+  products=data||[];
+  if(!products.length){box.innerHTML='<div class="empty">এই মুহূর্তে কোনো পণ্য নেই।</div>';return}
+  box.innerHTML=products.map(p=>`
+    <article class="card">
+      <img src="${escapeAttr(p.image_url||"")}" alt="${escapeAttr(p.name||"Product")}" onerror="this.style.display='none'">
+      <div class="body">
+        <h3>${escapeHtml(p.name)}</h3>
+        <div class="desc">${escapeHtml(p.description||"")}</div>
+        <div class="price">৳${Number(p.price).toLocaleString("bn-BD")}</div>
+        <div class="stock">${Number(p.stock)>0?"স্টক আছে":"স্টক শেষ"}</div>
+        <button class="orderbtn" ${Number(p.stock)<=0?"disabled":""} onclick="selectProduct('${p.id}')">অর্ডার করুন</button>
       </div>
-
-
-      <input
-        type="text"
-        id="customerName"
-        placeholder="আপনার নাম">
-
-
-      <input
-        type="tel"
-        id="phone"
-        placeholder="মোবাইল নম্বর">
-
-
-      <textarea
-        id="address"
-        placeholder="সম্পূর্ণ ডেলিভারি ঠিকানা"></textarea>
-
-
-      <select id="quantity">
-
-        <option value="1">Quantity: 1</option>
-        <option value="2">Quantity: 2</option>
-        <option value="3">Quantity: 3</option>
-        <option value="4">Quantity: 4</option>
-        <option value="5">Quantity: 5</option>
-
-      </select>
-
-
-      <button
-        class="confirm-btn"
-        id="confirmButton"
-        onclick="confirmOrder()">
-
-        অর্ডার Confirm করুন
-
-      </button>
-
-
-      <div
-        class="success"
-        id="successMessage">
-
-      </div>
-
-    </section>
-
-  </main>
-
-
-  <footer>
-    © 2026 Sadiya Shop
-    <br>
-    All Rights Reserved
-  </footer>
-
-
-  <script>
-
-    /* =====================================
-       SUPABASE CONFIGURATION
-       ===================================== */
-
-    const SUPABASE_URL =
-      "https://kbseaoddhrtwdjfrkzit.supabase.co";
-
-    const SUPABASE_KEY =
-      "sb_publishable_eShe9Sd6uQoHLvBUhAD9hQ__fioN6zU";
-
-
-    /* =====================================
-       APP DATA
-       ===================================== */
-
-    let products = [];
-
-    let selectedProduct = null;
-
-
-    /* =====================================
-       LOAD PRODUCTS FROM SUPABASE
-       ===================================== */
-
-    async function loadProducts() {
-
-      const loading =
-        document.getElementById("loading");
-
-      const error =
-        document.getElementById("errorMessage");
-
-      try {
-
-        const response = await fetch(
-          SUPABASE_URL +
-          "/rest/v1/products?select=*&active=eq.true&order=id.asc",
-          {
-            method: "GET",
-
-            headers: {
-              "apikey": SUPABASE_KEY,
-              "Authorization":
-                "Bearer " + SUPABASE_KEY
-            }
-          }
-        );
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            "Product load failed: " +
-            response.status
-          );
-
-        }
-
-
-        products = await response.json();
-
-
-        loading.style.display = "none";
-
-        renderProducts();
-
-      }
-
-      catch (err) {
-
-        loading.style.display = "none";
-
-        error.style.display = "block";
-
-        error.innerText =
-          "Product load করতে সমস্যা হয়েছে। Internet connection এবং Supabase settings পরীক্ষা করুন।";
-
-        console.error(err);
-
-      }
-
-    }
-
-
-    /* =====================================
-       DISPLAY PRODUCTS
-       ===================================== */
-
-    function renderProducts() {
-
-      const container =
-        document.getElementById("products");
-
-
-      container.innerHTML = "";
-
-
-      if (products.length === 0) {
-
-        container.innerHTML =
-          "<div class='loading'>কোনো product পাওয়া যায়নি।</div>";
-
-        return;
-      }
-
-
-      products.forEach(product => {
-
-        const card =
-          document.createElement("div");
-
-        card.className = "product";
-
-
-        const image =
-          product.image_url ||
-          "https://via.placeholder.com/800x600?text=Sadiya+Shop";
-
-
-        card.innerHTML = `
-
-          <img
-            src="${escapeHtml(image)}"
-            alt="${escapeHtml(product.name)}">
-
-          <div class="product-info">
-
-            <h3>
-              ${escapeHtml(product.name)}
-            </h3>
-
-            <p class="description">
-              ${escapeHtml(product.description || "")}
-            </p>
-
-            <div class="price">
-              ৳${Number(product.price).toFixed(0)}
-            </div>
-
-            <div class="stock">
-              ${product.stock > 0
-                ? "স্টকে আছে"
-                : "স্টক শেষ"}
-            </div>
-
-            <button
-              class="order-btn"
-              onclick="selectProduct(${product.id})"
-              ${product.stock <= 0 ? "disabled" : ""}>
-
-              ${product.stock > 0
-                ? "অর্ডার করুন"
-                : "স্টক শেষ"}
-
-            </button>
-
-          </div>
-        `;
-
-
-        container.appendChild(card);
-
-      });
-
-    }
-
-
-    /* =====================================
-       SELECT PRODUCT
-       ===================================== */
-
-    function selectProduct(productId) {
-
-      selectedProduct =
-        products.find(
-          p => Number(p.id) === Number(productId)
-        );
-
-
-      if (!selectedProduct) {
-
-        alert(
-          "Product পাওয়া যায়নি।"
-        );
-
-        return;
-      }
-
-
-      document.getElementById(
-        "selectedProduct"
-      ).innerHTML =
-
-        "নির্বাচিত পণ্য: " +
-        escapeHtml(selectedProduct.name) +
-        " — ৳" +
-        Number(selectedProduct.price).toFixed(0);
-
-
-      document.getElementById(
-        "order"
-      ).scrollIntoView({
-        behavior: "smooth"
-      });
-
-    }
-
-
-    /* =====================================
-       CREATE ORDER
-       ===================================== */
-
-    async function confirmOrder() {
-
-      if (!selectedProduct) {
-
-        alert(
-          "দয়া করে আগে একটি product নির্বাচন করুন।"
-        );
-
-        return;
-      }
-
-
-      const name =
-        document.getElementById(
-          "customerName"
-        ).value.trim();
-
-
-      const phone =
-        document.getElementById(
-          "phone"
-        ).value.trim();
-
-
-      const address =
-        document.getElementById(
-          "address"
-        ).value.trim();
-
-
-      const quantity =
-        Number(
-          document.getElementById(
-            "quantity"
-          ).value
-        );
-
-
-      if (!name || !phone || !address) {
-
-        alert(
-          "দয়া করে নাম, মোবাইল নম্বর এবং ঠিকানা পূরণ করুন।"
-        );
-
-        return;
-      }
-
-
-      if (quantity < 1) {
-
-        alert(
-          "Quantity সঠিকভাবে নির্বাচন করুন।"
-        );
-
-        return;
-      }
-
-
-      if (quantity > selectedProduct.stock) {
-
-        alert(
-          "দুঃখিত, এতগুলো product বর্তমানে stock-এ নেই।"
-        );
-
-        return;
-      }
-
-
-      const total =
-        Number(selectedProduct.price) *
-        quantity;
-
-
-      const button =
-        document.getElementById(
-          "confirmButton"
-        );
-
-
-      button.disabled = true;
-
-      button.innerText =
-        "⏳ Order পাঠানো হচ্ছে...";
-
-
-      try {
-
-        const response = await fetch(
-
-          SUPABASE_URL +
-          "/rest/v1/orders",
-
-          {
-
-            method: "POST",
-
-            headers: {
-
-              "Content-Type":
-                "application/json",
-
-              "apikey":
-                SUPABASE_KEY,
-
-              "Authorization":
-                "Bearer " + SUPABASE_KEY,
-
-              "Prefer":
-                "return=minimal"
-
-            },
-
-            body: JSON.stringify({
-
-              customer_name: name,
-
-              phone: phone,
-
-              address: address,
-
-              product_id:
-                selectedProduct.id,
-
-              product_name:
-                selectedProduct.name,
-
-              product_price:
-                Number(selectedProduct.price),
-
-              quantity:
-                quantity,
-
-              total_amount:
-                total,
-
-              status:
-                "new"
-
-            })
-
-          }
-
-        );
-
-
-        if (!response.ok) {
-
-          const errorText =
-            await response.text();
-
-          throw new Error(errorText);
-
-        }
-
-
-        const success =
-          document.getElementById(
-            "successMessage"
-          );
-
-
-        success.style.display =
-          "block";
-
-
-        success.innerHTML =
-
-          "<strong>✅ অর্ডার সফলভাবে গ্রহণ করা হয়েছে!</strong><br><br>" +
-
-          "পণ্য: " +
-          escapeHtml(selectedProduct.name) +
-          "<br>" +
-
-          "Quantity: " +
-          quantity +
-          "<br>" +
-
-          "মোট: ৳" +
-          total +
-          "<br><br>" +
-
-          "আমরা খুব শিগগির আপনার সাথে যোগাযোগ করব।";
-
-
-        document.getElementById(
-          "customerName"
-        ).value = "";
-
-
-        document.getElementById(
-          "phone"
-        ).value = "";
-
-
-        document.getElementById(
-          "address"
-        ).value = "";
-
-
-        document.getElementById(
-          "quantity"
-        ).value = "1";
-
-
-        success.scrollIntoView({
-          behavior: "smooth"
-        });
-
-
-      }
-
-      catch (error) {
-
-        console.error(error);
-
-        alert(
-          "Order পাঠানো যায়নি। কিছুক্ষণ পরে আবার চেষ্টা করুন।"
-        );
-
-      }
-
-      finally {
-
-        button.disabled = false;
-
-        button.innerText =
-          "অর্ডার Confirm করুন";
-
-      }
-
-    }
-
-
-    /* =====================================
-       BASIC HTML ESCAPE
-       ===================================== */
-
-    function escapeHtml(value) {
-
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-
-    }
-
-
-    /* =====================================
-       PWA SERVICE WORKER
-       ===================================== */
-
-    if (
-      "serviceWorker" in navigator
-    ) {
-
-      window.addEventListener(
-        "load",
-        function() {
-
-          navigator.serviceWorker
-            .register(
-              "./service-worker.js"
-            )
-            .then(function() {
-
-              console.log(
-                "Sadiya Shop PWA ready"
-              );
-
-            })
-            .catch(function(error) {
-
-              console.log(
-                "PWA error:",
-                error
-              );
-
-            });
-
-        }
-      );
-
-    }
-
-
-    /* =====================================
-       START APP
-       ===================================== */
-
-    loadProducts();
-
-  </script>
-
+    </article>`).join("");
+}
+function selectProduct(id){
+  selected=products.find(p=>String(p.id)===String(id));
+  document.getElementById("selected").textContent=`নির্বাচিত পণ্য: ${selected.name} — ৳${selected.price}`;
+  const q=document.getElementById("qty"); q.innerHTML="";
+  const max=Math.min(Number(selected.stock)||0,20);
+  for(let i=1;i<=max;i++){let o=document.createElement("option");o.value=i;o.textContent="Quantity: "+i;q.appendChild(o)}
+  updateTotal();
+  document.getElementById("orderBox").scrollIntoView({behavior:"smooth",block:"start"});
+}
+document.getElementById("qty").addEventListener("change",updateTotal);
+function updateTotal(){
+  if(!selected)return document.getElementById("total").textContent="";
+  const q=Number(document.getElementById("qty").value||1);
+  document.getElementById("total").textContent=`মোট: ৳${(Number(selected.price)*q).toLocaleString("bn-BD")}`;
+}
+async function placeOrder(){
+  const msg=document.getElementById("message");msg.style.display="none";msg.className="msg";
+  if(!selected)return showMsg("আগে একটি পণ্য নির্বাচন করুন।",true);
+  const name=document.getElementById("name").value.trim(),phone=document.getElementById("phone").value.trim(),address=document.getElementById("address").value.trim(),qty=Number(document.getElementById("qty").value||0);
+  if(name.length<2)return showMsg("আপনার নাম দিন।",true);
+  if(!/^01[3-9]\d{8}$/.test(phone))return showMsg("সঠিক মোবাইল নম্বর দিন।",true);
+  if(address.length<6)return showMsg("সম্পূর্ণ ডেলিভারি ঠিকানা দিন।",true);
+  if(qty<1||qty>Number(selected.stock))return showMsg("এই পরিমাণ পণ্য স্টকে নেই।",true);
+
+  const total=Number(selected.price)*qty;
+  const {error}=await db.from("orders").insert({
+    customer_name:name,phone,address,product_name:selected.name,quantity:qty,total,status:"New"
+  });
+  if(error)return showMsg("অর্ডার নেওয়া যায়নি। আবার চেষ্টা করুন।",true);
+
+  // Stock decrement is intentionally not done from the public browser.
+  // Admin can update stock after confirming the order.
+  showMsg(`✅ অর্ডার সফলভাবে গ্রহণ করা হয়েছে!<br><br>পণ্য: ${escapeHtml(selected.name)}<br>Quantity: ${qty}<br>মোট: ৳${total.toLocaleString("bn-BD")}<br><br>আমরা খুব শীঘ্রই আপনার সাথে যোগাযোগ করব।`);
+  document.getElementById("name").value="";document.getElementById("phone").value="";document.getElementById("address").value="";
+}
+function showMsg(t,err=false){const m=document.getElementById("message");m.innerHTML=t;m.className="msg"+(err?" error":"");m.style.display="block"}
+function escapeHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function escapeAttr(v){return escapeHtml(v)}
+loadProducts();
+</script>
 </body>
 </html>
