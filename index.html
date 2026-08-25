@@ -72,6 +72,14 @@
       color: #666;
     }
 
+    .loading {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
     .products {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -112,6 +120,12 @@
       font-size: 20px;
       font-weight: bold;
       margin-bottom: 12px;
+    }
+
+    .stock {
+      color: #16a34a;
+      font-size: 13px;
+      margin-bottom: 10px;
     }
 
     button {
@@ -185,8 +199,9 @@
       font-weight: bold;
     }
 
-    .confirm-btn:active {
-      transform: scale(.98);
+    .confirm-btn:disabled {
+      opacity: .6;
+      cursor: not-allowed;
     }
 
     .success {
@@ -199,6 +214,15 @@
       line-height: 1.6;
     }
 
+    .error {
+      display: none;
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
     footer {
       text-align: center;
       padding: 25px;
@@ -207,7 +231,6 @@
     }
 
     @media (max-width: 700px) {
-
       .products {
         grid-template-columns: 1fr;
       }
@@ -229,7 +252,6 @@
 
 <body>
 
-  <!-- HEADER -->
   <header>
     <h1>🛍️ Sadiya Shop</h1>
     <p>আপনার পছন্দের পণ্য, সহজে অর্ডার করুন</p>
@@ -238,118 +260,25 @@
 
   <main class="container">
 
-    <!-- HERO -->
     <section class="hero">
       <h2>আমাদের জনপ্রিয় পণ্য</h2>
       <p>পছন্দের পণ্যটি বেছে নিয়ে অর্ডার করুন</p>
     </section>
 
 
-    <!-- PRODUCTS -->
-    <section class="products">
+    <div class="error" id="errorMessage"></div>
 
-      <!-- PRODUCT 1 -->
-      <div class="product">
-
-        <img
-          src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80"
-          alt="Premium Face Wash">
-
-        <div class="product-info">
-
-          <h3>Premium Face Wash</h3>
-
-          <p class="description">
-            ত্বকের যত্নের জন্য সুন্দর একটি ডেমো প্রোডাক্ট।
-          </p>
-
-          <div class="price">
-            ৳450
-          </div>
-
-          <button
-            class="order-btn"
-            onclick="selectProduct('Premium Face Wash',450)">
-
-            অর্ডার করুন
-
-          </button>
-
-        </div>
-      </div>
+    <div class="loading" id="loading">
+      ⏳ Product লোড হচ্ছে...
+    </div>
 
 
-      <!-- PRODUCT 2 -->
-      <div class="product">
-
-        <img
-          src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80"
-          alt="Herbal Hair Oil">
-
-        <div class="product-info">
-
-          <h3>Herbal Hair Oil</h3>
-
-          <p class="description">
-            চুলের যত্নের জন্য ডেমো হারবাল হেয়ার অয়েল।
-          </p>
-
-          <div class="price">
-            ৳650
-          </div>
-
-          <button
-            class="order-btn"
-            onclick="selectProduct('Herbal Hair Oil',650)">
-
-            অর্ডার করুন
-
-          </button>
-
-        </div>
-      </div>
+    <section class="products" id="products"></section>
 
 
-      <!-- PRODUCT 3 -->
-      <div class="product">
-
-        <img
-          src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80"
-          alt="Beauty Care Combo">
-
-        <div class="product-info">
-
-          <h3>Beauty Care Combo</h3>
-
-          <p class="description">
-            বিভিন্ন beauty care product-এর একটি ডেমো কম্বো।
-          </p>
-
-          <div class="price">
-            ৳990
-          </div>
-
-          <button
-            class="order-btn"
-            onclick="selectProduct('Beauty Care Combo',990)">
-
-            অর্ডার করুন
-
-          </button>
-
-        </div>
-      </div>
-
-    </section>
-
-
-    <!-- ORDER FORM -->
-    <section
-      class="order-section"
-      id="order">
+    <section class="order-section" id="order">
 
       <h2>🛒 অর্ডার করুন</h2>
-
 
       <div
         class="selected-product"
@@ -379,31 +308,18 @@
 
       <select id="quantity">
 
-        <option value="1">
-          Quantity: 1
-        </option>
-
-        <option value="2">
-          Quantity: 2
-        </option>
-
-        <option value="3">
-          Quantity: 3
-        </option>
-
-        <option value="4">
-          Quantity: 4
-        </option>
-
-        <option value="5">
-          Quantity: 5
-        </option>
+        <option value="1">Quantity: 1</option>
+        <option value="2">Quantity: 2</option>
+        <option value="3">Quantity: 3</option>
+        <option value="4">Quantity: 4</option>
+        <option value="5">Quantity: 5</option>
 
       </select>
 
 
       <button
         class="confirm-btn"
+        id="confirmButton"
         onclick="confirmOrder()">
 
         অর্ডার Confirm করুন
@@ -422,48 +338,230 @@
   </main>
 
 
-  <!-- FOOTER -->
   <footer>
-
     © 2026 Sadiya Shop
     <br>
     All Rights Reserved
-
   </footer>
 
 
   <script>
 
-    let selectedProductName = "";
-    let selectedProductPrice = 0;
+    /* =====================================
+       SUPABASE CONFIGURATION
+       ===================================== */
+
+    const SUPABASE_URL =
+      "https://kbseaoddhrtwdjfrkzit.supabase.co";
+
+    const SUPABASE_KEY =
+      "sb_publishable_eShe9Sd6uQoHLvBUhAD9hQ__fioN6zU";
 
 
-    // PRODUCT SELECT
-    function selectProduct(name, price) {
+    /* =====================================
+       APP DATA
+       ===================================== */
 
-      selectedProductName = name;
-      selectedProductPrice = price;
+    let products = [];
+
+    let selectedProduct = null;
+
+
+    /* =====================================
+       LOAD PRODUCTS FROM SUPABASE
+       ===================================== */
+
+    async function loadProducts() {
+
+      const loading =
+        document.getElementById("loading");
+
+      const error =
+        document.getElementById("errorMessage");
+
+      try {
+
+        const response = await fetch(
+          SUPABASE_URL +
+          "/rest/v1/products?select=*&active=eq.true&order=id.asc",
+          {
+            method: "GET",
+
+            headers: {
+              "apikey": SUPABASE_KEY,
+              "Authorization":
+                "Bearer " + SUPABASE_KEY
+            }
+          }
+        );
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Product load failed: " +
+            response.status
+          );
+
+        }
+
+
+        products = await response.json();
+
+
+        loading.style.display = "none";
+
+        renderProducts();
+
+      }
+
+      catch (err) {
+
+        loading.style.display = "none";
+
+        error.style.display = "block";
+
+        error.innerText =
+          "Product load করতে সমস্যা হয়েছে। Internet connection এবং Supabase settings পরীক্ষা করুন।";
+
+        console.error(err);
+
+      }
+
+    }
+
+
+    /* =====================================
+       DISPLAY PRODUCTS
+       ===================================== */
+
+    function renderProducts() {
+
+      const container =
+        document.getElementById("products");
+
+
+      container.innerHTML = "";
+
+
+      if (products.length === 0) {
+
+        container.innerHTML =
+          "<div class='loading'>কোনো product পাওয়া যায়নি।</div>";
+
+        return;
+      }
+
+
+      products.forEach(product => {
+
+        const card =
+          document.createElement("div");
+
+        card.className = "product";
+
+
+        const image =
+          product.image_url ||
+          "https://via.placeholder.com/800x600?text=Sadiya+Shop";
+
+
+        card.innerHTML = `
+
+          <img
+            src="${escapeHtml(image)}"
+            alt="${escapeHtml(product.name)}">
+
+          <div class="product-info">
+
+            <h3>
+              ${escapeHtml(product.name)}
+            </h3>
+
+            <p class="description">
+              ${escapeHtml(product.description || "")}
+            </p>
+
+            <div class="price">
+              ৳${Number(product.price).toFixed(0)}
+            </div>
+
+            <div class="stock">
+              ${product.stock > 0
+                ? "স্টকে আছে"
+                : "স্টক শেষ"}
+            </div>
+
+            <button
+              class="order-btn"
+              onclick="selectProduct(${product.id})"
+              ${product.stock <= 0 ? "disabled" : ""}>
+
+              ${product.stock > 0
+                ? "অর্ডার করুন"
+                : "স্টক শেষ"}
+
+            </button>
+
+          </div>
+        `;
+
+
+        container.appendChild(card);
+
+      });
+
+    }
+
+
+    /* =====================================
+       SELECT PRODUCT
+       ===================================== */
+
+    function selectProduct(productId) {
+
+      selectedProduct =
+        products.find(
+          p => Number(p.id) === Number(productId)
+        );
+
+
+      if (!selectedProduct) {
+
+        alert(
+          "Product পাওয়া যায়নি।"
+        );
+
+        return;
+      }
+
 
       document.getElementById(
         "selectedProduct"
       ).innerHTML =
+
         "নির্বাচিত পণ্য: " +
-        name +
+        escapeHtml(selectedProduct.name) +
         " — ৳" +
-        price;
+        Number(selectedProduct.price).toFixed(0);
+
 
       document.getElementById(
         "order"
       ).scrollIntoView({
         behavior: "smooth"
       });
+
     }
 
 
-    // ORDER CONFIRM
-    function confirmOrder() {
+    /* =====================================
+       CREATE ORDER
+       ===================================== */
 
-      if (!selectedProductName) {
+    async function confirmOrder() {
+
+      if (!selectedProduct) {
 
         alert(
           "দয়া করে আগে একটি product নির্বাচন করুন।"
@@ -509,58 +607,223 @@
       }
 
 
+      if (quantity < 1) {
+
+        alert(
+          "Quantity সঠিকভাবে নির্বাচন করুন।"
+        );
+
+        return;
+      }
+
+
+      if (quantity > selectedProduct.stock) {
+
+        alert(
+          "দুঃখিত, এতগুলো product বর্তমানে stock-এ নেই।"
+        );
+
+        return;
+      }
+
+
       const total =
-        selectedProductPrice * quantity;
+        Number(selectedProduct.price) *
+        quantity;
 
 
-      const success =
+      const button =
         document.getElementById(
-          "successMessage"
+          "confirmButton"
         );
 
 
-      success.style.display = "block";
+      button.disabled = true;
+
+      button.innerText =
+        "⏳ Order পাঠানো হচ্ছে...";
 
 
-      success.innerHTML =
-        "<strong>✅ অর্ডার তৈরি হয়েছে!</strong><br><br>" +
+      try {
 
-        "পণ্য: " +
-        selectedProductName +
-        "<br>" +
+        const response = await fetch(
 
-        "Quantity: " +
-        quantity +
-        "<br>" +
+          SUPABASE_URL +
+          "/rest/v1/orders",
 
-        "Customer: " +
-        name +
-        "<br>" +
+          {
 
-        "মোবাইল: " +
-        phone +
-        "<br>" +
+            method: "POST",
 
-        "মোট: ৳" +
-        total;
+            headers: {
+
+              "Content-Type":
+                "application/json",
+
+              "apikey":
+                SUPABASE_KEY,
+
+              "Authorization":
+                "Bearer " + SUPABASE_KEY,
+
+              "Prefer":
+                "return=minimal"
+
+            },
+
+            body: JSON.stringify({
+
+              customer_name: name,
+
+              phone: phone,
+
+              address: address,
+
+              product_id:
+                selectedProduct.id,
+
+              product_name:
+                selectedProduct.name,
+
+              product_price:
+                Number(selectedProduct.price),
+
+              quantity:
+                quantity,
+
+              total_amount:
+                total,
+
+              status:
+                "new"
+
+            })
+
+          }
+
+        );
 
 
-      success.scrollIntoView({
-        behavior: "smooth"
-      });
+        if (!response.ok) {
+
+          const errorText =
+            await response.text();
+
+          throw new Error(errorText);
+
+        }
+
+
+        const success =
+          document.getElementById(
+            "successMessage"
+          );
+
+
+        success.style.display =
+          "block";
+
+
+        success.innerHTML =
+
+          "<strong>✅ অর্ডার সফলভাবে গ্রহণ করা হয়েছে!</strong><br><br>" +
+
+          "পণ্য: " +
+          escapeHtml(selectedProduct.name) +
+          "<br>" +
+
+          "Quantity: " +
+          quantity +
+          "<br>" +
+
+          "মোট: ৳" +
+          total +
+          "<br><br>" +
+
+          "আমরা খুব শিগগির আপনার সাথে যোগাযোগ করব।";
+
+
+        document.getElementById(
+          "customerName"
+        ).value = "";
+
+
+        document.getElementById(
+          "phone"
+        ).value = "";
+
+
+        document.getElementById(
+          "address"
+        ).value = "";
+
+
+        document.getElementById(
+          "quantity"
+        ).value = "1";
+
+
+        success.scrollIntoView({
+          behavior: "smooth"
+        });
+
+
+      }
+
+      catch (error) {
+
+        console.error(error);
+
+        alert(
+          "Order পাঠানো যায়নি। কিছুক্ষণ পরে আবার চেষ্টা করুন।"
+        );
+
+      }
+
+      finally {
+
+        button.disabled = false;
+
+        button.innerText =
+          "অর্ডার Confirm করুন";
+
+      }
 
     }
 
 
-    // SERVICE WORKER / PWA
-    if ("serviceWorker" in navigator) {
+    /* =====================================
+       BASIC HTML ESCAPE
+       ===================================== */
+
+    function escapeHtml(value) {
+
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /* =====================================
+       PWA SERVICE WORKER
+       ===================================== */
+
+    if (
+      "serviceWorker" in navigator
+    ) {
 
       window.addEventListener(
         "load",
         function() {
 
           navigator.serviceWorker
-            .register("./service-worker.js")
+            .register(
+              "./service-worker.js"
+            )
             .then(function() {
 
               console.log(
@@ -581,6 +844,13 @@
       );
 
     }
+
+
+    /* =====================================
+       START APP
+       ===================================== */
+
+    loadProducts();
 
   </script>
 
