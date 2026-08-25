@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+
+  <title>Sadiya Shop - Admin</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 20px 16px;
+    }
+
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      color: #cbd5e1;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px 15px;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat {
+      background: white;
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    }
+
+    .stat small {
+      color: #6b7280;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 25px;
+      margin-top: 7px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+    }
+
+    .card h2 {
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+
+    .product {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 15px;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .product:last-child {
+      border-bottom: none;
+    }
+
+    .product img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .product-info h3 {
+      margin-bottom: 6px;
+    }
+
+    .product-info p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-top: 6px;
+    }
+
+    .edit-btn {
+      background: #111827;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .add-btn {
+      width: 100%;
+      padding: 13px;
+      background: #16a34a;
+      color: white;
+      border: none;
+      border-radius: 9px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 80px;
+    }
+
+    .save-btn {
+      width: 100%;
+      background: #111827;
+      color: white;
+      border: none;
+      padding: 13px;
+      border-radius: 9px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .notice {
+      display: none;
+      background: #dcfce7;
+      color: #166534;
+      padding: 12px;
+      border-radius: 8px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 650px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .product {
+        grid-template-columns: 70px 1fr;
+      }
+
+      .product img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .edit-btn {
+        grid-column: 2;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>⚙️ Sadiya Shop Admin</h1>
+    <p>আপনার Online Shop পরিচালনা করুন</p>
+  </header>
+
+  <main class="container">
+
+    <!-- DASHBOARD -->
+
+    <section class="dashboard">
+
+      <div class="stat">
+        <small>মোট Product</small>
+        <strong>3</strong>
+      </div>
+
+      <div class="stat">
+        <small>নতুন Order</small>
+        <strong>0</strong>
+      </div>
+
+      <div class="stat">
+        <small>আজকের বিক্রি</small>
+        <strong>৳0</strong>
+      </div>
+
+    </section>
+
+
+    <!-- PRODUCTS -->
+
+    <section class="card">
+
+      <h2>🛍️ Product Management</h2>
+
+      <div class="product">
+
+        <img
+          src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=300&q=80"
+          alt="Product">
+
+        <div class="product-info">
+
+          <h3>Premium Face Wash</h3>
+
+          <p>ত্বকের যত্নের জন্য ডেমো প্রোডাক্ট</p>
+
+          <div class="price">
+            ৳450
+          </div>
+
+        </div>
+
+        <button
+          class="edit-btn"
+          onclick="editProduct('Premium Face Wash',450)">
+
+          Edit
+
+        </button>
+
+      </div>
+
+
+      <div class="product">
+
+        <img
+          src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=300&q=80"
+          alt="Product">
+
+        <div class="product-info">
+
+          <h3>Herbal Hair Oil</h3>
+
+          <p>চুলের যত্নের জন্য ডেমো প্রোডাক্ট</p>
+
+          <div class="price">
+            ৳650
+          </div>
+
+        </div>
+
+        <button
+          class="edit-btn"
+          onclick="editProduct('Herbal Hair Oil',650)">
+
+          Edit
+
+        </button>
+
+      </div>
+
+
+      <div class="product">
+
+        <img
+          src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=300&q=80"
+          alt="Product">
+
+        <div class="product-info">
+
+          <h3>Beauty Care Combo</h3>
+
+          <p>Beauty care-এর ডেমো কম্বো</p>
+
+          <div class="price">
+            ৳990
+          </div>
+
+        </div>
+
+        <button
+          class="edit-btn"
+          onclick="editProduct('Beauty Care Combo',990)">
+
+          Edit
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- EDIT PRODUCT -->
+
+    <section class="card" id="editSection">
+
+      <h2>✏️ Product Edit</h2>
+
+      <label>
+        Product Name
+      </label>
+
+      <input
+        type="text"
+        id="productName"
+        placeholder="Product name">
+
+
+      <label>
+        Price
+      </label>
+
+      <input
+        type="number"
+        id="productPrice"
+        placeholder="Price">
+
+
+      <label>
+        Image URL
+      </label>
+
+      <input
+        type="url"
+        id="productImage"
+        placeholder="https://example.com/image.jpg">
+
+
+      <label>
+        Description
+      </label>
+
+      <textarea
+        id="productDescription"
+        placeholder="Product description"></textarea>
+
+
+      <button
+        class="save-btn"
+        onclick="saveProduct()">
+
+        💾 Save Product
+
+      </button>
+
+
+      <div
+        class="notice"
+        id="notice">
+
+        ✅ Product information saved!
+
+      </div>
+
+    </section>
+
+
+    <!-- ORDERS -->
+
+    <section class="card">
+
+      <h2>📦 Recent Orders</h2>
+
+      <p style="color:#6b7280;">
+        এখনো কোনো order পাওয়া যায়নি।
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    function editProduct(name, price) {
+
+      document.getElementById(
+        "productName"
+      ).value = name;
+
+      document.getElementById(
+        "productPrice"
+      ).value = price;
+
+      document.getElementById(
+        "editSection"
+      ).scrollIntoView({
+        behavior: "smooth"
+      });
+
+    }
+
+
+    function saveProduct() {
+
+      const name =
+        document.getElementById(
+          "productName"
+        ).value;
+
+      const price =
+        document.getElementById(
+          "productPrice"
+        ).value;
+
+      if (!name || !price) {
+
+        alert(
+          "Product name এবং price দিন।"
+        );
+
+        return;
+      }
+
+      document.getElementById(
+        "notice"
+      ).style.display = "block";
+
+      setTimeout(function() {
+
+        document.getElementById(
+          "notice"
+        ).style.display = "none";
+
+      }, 3000);
+
+    }
+
+  </script>
+
+</body>
+</html>
