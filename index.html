@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111827">
+  <title>Sadiya Shop</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      color: #222;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 22px 16px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    header p {
+      color: #d1d5db;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px 15px;
+    }
+
+    .hero {
+      background: white;
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 22px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    .hero h2 {
+      font-size: 23px;
+      margin-bottom: 8px;
+    }
+
+    .hero p {
+      color: #666;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .product {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    .product img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-info {
+      padding: 15px;
+    }
+
+    .product h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .description {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+    }
+
+    .order-btn {
+      width: 100%;
+      background: #111827;
+      color: white;
+      padding: 12px;
+      border-radius: 9px;
+      font-size: 16px;
+    }
+
+    .order-btn:hover {
+      background: #1f2937;
+    }
+
+    .order-section {
+      background: white;
+      margin-top: 25px;
+      padding: 20px;
+      border-radius: 16px;
+      box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    .order-section h2 {
+      margin-bottom: 15px;
+    }
+
+    .selected-product {
+      background: #f3f4f6;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ddd;
+      border-radius: 9px;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .confirm-btn {
+      width: 100%;
+      background: #16a34a;
+      color: white;
+      padding: 14px;
+      border-radius: 9px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      .products {
+        grid-template-columns: 1fr;
+      }
+
+      .product img {
+        height: 240px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Sadiya Shop</h1>
+    <p>আপনার পছন্দের পণ্য, সহজে অর্ডার করুন</p>
+  </header>
+
+  <main class="container">
+
+    <section class="hero">
+      <h2>আমাদের জনপ্রিয় পণ্য</h2>
+      <p>পছন্দের পণ্যটি বেছে নিয়ে অর্ডার করুন</p>
+    </section>
+
+    <section class="products">
+
+      <div class="product">
+        <img
+          src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=800&q=80"
+          alt="Premium Face Wash">
+
+        <div class="product-info">
+          <h3>Premium Face Wash</h3>
+          <p class="description">
+            ত্বকের যত্নের জন্য সুন্দর একটি ডেমো প্রোডাক্ট।
+          </p>
+          <div class="price">৳450</div>
+
+          <button
+            class="order-btn"
+            onclick="selectProduct('Premium Face Wash', 450)">
+            অর্ডার করুন
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product">
+        <img
+          src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80"
+          alt="Herbal Hair Oil">
+
+        <div class="product-info">
+          <h3>Herbal Hair Oil</h3>
+          <p class="description">
+            চুলের যত্নের জন্য ডেমো হারবাল হেয়ার অয়েল।
+          </p>
+          <div class="price">৳650</div>
+
+          <button
+            class="order-btn"
+            onclick="selectProduct('Herbal Hair Oil', 650)">
+            অর্ডার করুন
+          </button>
+        </div>
+      </div>
+
+
+      <div class="product">
+        <img
+          src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=800&q=80"
+          alt="Beauty Care Combo">
+
+        <div class="product-info">
+          <h3>Beauty Care Combo</h3>
+          <p class="description">
+            বিভিন্ন beauty care product-এর একটি ডেমো কম্বো।
+          </p>
+          <div class="price">৳990</div>
+
+          <button
+            class="order-btn"
+            onclick="selectProduct('Beauty Care Combo', 990)">
+            অর্ডার করুন
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+
+    <section class="order-section" id="order">
+
+      <h2>🛒 অর্ডার করুন</h2>
+
+      <div class="selected-product" id="selectedProduct">
+        আগে একটি product নির্বাচন করুন।
+      </div>
+
+      <input
+        type="text"
+        id="customerName"
+        placeholder="আপনার নাম">
+
+      <input
+        type="tel"
+        id="phone"
+        placeholder="মোবাইল নম্বর">
+
+      <textarea
+        id="address"
+        placeholder="সম্পূর্ণ ডেলিভারি ঠিকানা"></textarea>
+
+      <select id="quantity">
+        <option value="1">Quantity: 1</option>
+        <option value="2">Quantity: 2</option>
+        <option value="3">Quantity: 3</option>
+        <option value="4">Quantity: 4</option>
+        <option value="5">Quantity: 5</option>
+      </select>
+
+      <button class="confirm-btn" onclick="confirmOrder()">
+        অর্ডার Confirm করুন
+      </button>
+
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Sadiya Shop — All Rights Reserved
+  </footer>
+
+
+  <script>
+
+    let selectedProductName = "";
+    let selectedProductPrice = 0;
+
+    function selectProduct(name, price) {
+
+      selectedProductName = name;
+      selectedProductPrice = price;
+
+      document.getElementById("selectedProduct").innerHTML =
+        "নির্বাচিত পণ্য: " +
+        name +
+        " — ৳" +
+        price;
+
+      document.getElementById("order").scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+
+    function confirmOrder() {
+
+      if (!selectedProductName) {
+        alert("দয়া করে আগে একটি product নির্বাচন করুন।");
+        return;
+      }
+
+      const name =
+        document.getElementById("customerName").value.trim();
+
+      const phone =
+        document.getElementById("phone").value.trim();
+
+      const address =
+        document.getElementById("address").value.trim();
+
+      const quantity =
+        document.getElementById("quantity").value;
+
+      if (!name || !phone || !address) {
+        alert("দয়া করে নাম, মোবাইল নম্বর এবং ঠিকানা পূরণ করুন।");
+        return;
+      }
+
+      const total =
+        selectedProductPrice * Number(quantity);
+
+      alert(
+        "অর্ডার গ্রহণ করা হয়েছে!\\n\\n" +
+        "পণ্য: " + selectedProductName + "\\n" +
+        "Quantity: " + quantity + "\\n" +
+        "মোট: ৳" + total
+      );
+    }
+
+  </script>
+
+</body>
+</html>
